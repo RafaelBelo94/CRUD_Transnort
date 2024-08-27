@@ -1,0 +1,89 @@
+create database transpornort;
+
+drop database transpornort;
+
+use transpornort;
+
+CREATE TABLE Cliente (
+    idcliente INT PRIMARY KEY auto_increment,
+    nome VARCHAR(45),
+    telefone LONG,
+    email Varchar(45),
+    senha varchar(45),
+	cep LONG NOT NULL,
+    logradura VARCHAR(45) NOT NULL,
+    complemento VARCHAR(55),
+    unidade VARCHAR(15),
+    bairro VARCHAR(15) NOT NULL,
+    cidade VARCHAR(45) NOT NULL,
+    uf varchar(2),
+    CPF LONG,
+    CNPJ INT,
+    UNIQUE (CPF, CNPJ)
+);
+
+INSERT INTO cliente VALUES (
+	null,
+	"Amanda",
+	85999156298,
+	"amanda.silva101@gmail.com",
+	"Amand1n4V1P@",
+	"01001000",
+	"Praça da Sé",
+	"lado ímpar",
+	null,
+	"Sé",
+	"São Paulo",
+	"SP",
+	60125549785,
+ null);
+ 
+ SELECT * FROM cliente;
+ 
+ UPDATE cliente SET cep = 01001000 WHERE idcliente = 1;
+
+CREATE TABLE Deposito (
+	iddeposito INT PRIMARY KEY auto_increment,
+	nome VARCHAR(45) NOT NULL,
+	cep INT NOT NULL,
+	logradura VARCHAR(45) NOT NULL,
+	complemento VARCHAR(55) NOT NULL,
+	unidade VARCHAR(15),
+	bairro VARCHAR(45) NOT NULL,
+	cidade VARCHAR(45) NOT NULL,
+	uf varchar(2),
+	fk_Produto_idproduto INT
+);
+
+INSERT INTO Deposito VALUES (
+	null,
+	"SAO LEOPOLDO II",
+	93001970,
+	"Rua São Joaquim",
+	948,
+	"AC São Leopoldo",
+    "Centro",
+	"São Leopoldo",
+	"RS",
+	null);
+
+CREATE TABLE Produto(
+	idproduto INT PRIMARY KEY auto_increment,
+	nome VARCHAR(45),
+	valor INT,
+    descricao VARCHAR(115),
+    quantidade INT,
+    fk_deposito_iddeposito INT
+);
+
+INSERT INTO Deposito VALUES (
+	null,
+	"Café 3 corações",
+	10,
+	"Café embalado a vacuo Santa clara 3 corações, 250g peso unitário",
+	"14630",
+	null);
+
+
+ALTER TABLE Deposito ADD CONSTRAINT FK_Produto_idproduto FOREIGN KEY (fk_produto_idproduto) REFERENCES Produto (idproduto);
+ALTER TABLE Produto ADD CONSTRAINT FK_deposito_iddeposito FOREIGN KEY (fk_deposito_iddeposito) REFERENCES Deposito (iddeposito);
